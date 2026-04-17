@@ -58,7 +58,7 @@ function AppShell() {
               <span className="text-text-secondary/60 text-sm">PolitiScope</span>
             </div>
             <p className="text-text-secondary/40 text-xs">
-              &copy; {new Date().getFullYear()} Lakshay Malik &mdash; MBA Business Analytics
+              &copy; {new Date().getFullYear()} PolitiScope
             </p>
           </div>
         </div>

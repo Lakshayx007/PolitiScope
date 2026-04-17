@@ -1,5 +1,7 @@
 # PolitiScope — Political Intelligence Dashboard
 
+**Live demo:** [politi-scope.vercel.app](https://politi-scope.vercel.app/)
+
 A full-stack political intelligence web application that tracks what politicians stand for through AI-powered topic analysis of global news coverage.
 
 **Stack:** React + Vite + Tailwind CSS • FastAPI • scikit-learn LDA • Recharts • Google News RSS

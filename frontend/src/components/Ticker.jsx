@@ -1,11 +1,12 @@
 import { useState, useEffect } from 'react';
 import { timeAgo } from '../utils';
+import { API_BASE } from '../config';
 
 export default function Ticker() {
   const [headlines, setHeadlines] = useState([]);
 
   useEffect(() => {
-    fetch('/api/ticker')
+    fetch(`${API_BASE}/api/ticker`)
       .then((res) => res.json())
       .then((data) => {
         if (data.headlines && data.headlines.length > 0) {

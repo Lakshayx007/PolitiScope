@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import { TopicTimelineChart, TopicWordCloud } from '../components/TopicChart';
+import { API_BASE } from '../config';
 
 export default function Compare() {
   const [nameA, setNameA] = useState('');
@@ -24,13 +25,13 @@ export default function Compare() {
     setError('');
     setData(null);
     try {
-      const res = await fetch(`/api/compare?a=${encodeURIComponent(a)}&b=${encodeURIComponent(b)}`);
+      const res = await fetch(`${API_BASE}/api/compare?a=${encodeURIComponent(a)}&b=${encodeURIComponent(b)}`);
       if (!res.ok) throw new Error((await res.json().catch(() => ({}))).detail || 'Failed');
       const json = await res.json();
       setData(json);
       // Fetch images
-      fetch(`/api/politician-image/${encodeURIComponent(a)}`).then(r => r.json()).then(d => setImageA(d.image_url || null)).catch(() => {});
-      fetch(`/api/politician-image/${encodeURIComponent(b)}`).then(r => r.json()).then(d => setImageB(d.image_url || null)).catch(() => {});
+      fetch(`${API_BASE}/api/politician-image/${encodeURIComponent(a)}`).then(r => r.json()).then(d => setImageA(d.image_url || null)).catch(() => {});
+      fetch(`${API_BASE}/api/politician-image/${encodeURIComponent(b)}`).then(r => r.json()).then(d => setImageB(d.image_url || null)).catch(() => {});
     } catch (err) {
       setError(err.message);
     } finally {

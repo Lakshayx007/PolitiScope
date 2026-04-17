@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import SearchBar from '../components/SearchBar';
 import Ticker from '../components/Ticker';
+import { API_BASE } from '../config';
 
 const POLITICIANS = [
   { name: 'Narendra Modi', slug: 'Narendra_Modi' },
@@ -16,7 +17,7 @@ function PoliticianCard({ politician, navigate }) {
   const [imageUrl, setImageUrl] = useState(null);
 
   useEffect(() => {
-    fetch(`/api/politician-image/${encodeURIComponent(politician.name)}`)
+    fetch(`${API_BASE}/api/politician-image/${encodeURIComponent(politician.name)}`)
       .then(res => res.json())
       .then(data => { if (data.image_url) setImageUrl(data.image_url); })
       .catch(() => {});

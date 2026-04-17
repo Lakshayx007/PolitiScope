@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import { timeAgo } from '../utils';
 import TopicCard from '../components/TopicCard';
 import NewsCard from '../components/NewsCard';
+import { API_BASE } from '../config';
 import TopicChart, {
   TopicDonutChart,
   SourceBarChart,
@@ -126,7 +127,7 @@ export default function Politician() {
     setData(null);
     setSelectedTopic(null);
 
-    fetch(`/api/politician/${encodeURIComponent(decodedName)}`)
+    fetch(`${API_BASE}/api/politician/${encodeURIComponent(decodedName)}`)
       .then((res) => {
         if (!res.ok) return res.json().then((e) => Promise.reject(e));
         return res.json();
@@ -152,7 +153,7 @@ export default function Politician() {
     setAvatarLoading(true);
     setAvatarUrl(null);
 
-    fetch(`/api/politician-image/${encodeURIComponent(decodedName)}`)
+    fetch(`${API_BASE}/api/politician-image/${encodeURIComponent(decodedName)}`)
       .then((res) => res.json())
       .then((json) => {
         setAvatarUrl(json.image_url);

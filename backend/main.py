@@ -120,7 +120,7 @@ def _build_analytics(articles: list[dict], topics: list[dict]) -> dict:
         "day_distribution": day_distribution,
         "recency_percentage": recency_pct,
         "unique_sources": len(source_counts),
-        "topic_timeline": topic_timeline,        "unique_sources": len(source_counts),
+        "topic_timeline": topic_timeline,
     }
 
 

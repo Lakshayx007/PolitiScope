@@ -301,12 +301,8 @@ def run_topic_modeling(
     )
     doc_topic_matrix = lda.fit_transform(tfidf_matrix)
 
-    # --- IMPROVEMENT 1: Topic Coherence ---
-    from gensim.models.coherencemodel import CoherenceModel
-    from gensim.corpora import Dictionary
-
+    # --- IMPROVEMENT 1: Topic Coherence (optional — requires gensim) ---
     tokenized_docs = [doc.split() for doc in valid_docs]
-    dictionary = Dictionary(tokenized_docs)
 
     topics_words = []
     for topic_idx in range(n_topics):
@@ -314,7 +310,12 @@ def run_topic_modeling(
         words = [str(feature_names[i]) for i in top_indices]
         topics_words.append(words)
 
+    coherence_scores = [0.0] * n_topics
     try:
+        from gensim.models.coherencemodel import CoherenceModel
+        from gensim.corpora import Dictionary
+
+        dictionary = Dictionary(tokenized_docs)
         cm = CoherenceModel(
             topics=topics_words,
             texts=tokenized_docs,
@@ -323,7 +324,8 @@ def run_topic_modeling(
         )
         coherence_scores = cm.get_coherence_per_topic()
     except Exception:
-        coherence_scores = [0.0] * n_topics
+        # gensim not installed or coherence calc failed — fall back to zeros
+        pass
 
     # --- IMPROVEMENT 5: Topic Stability Badge ---
     lda_check = LatentDirichletAllocation(
